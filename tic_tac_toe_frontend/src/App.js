@@ -1,5 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import SnakeGame from './Snake';
+
+// PUBLIC_INTERFACE
+function AppNav({ currentGame, setGame }) {
+  return (
+    <div className="tictac-mode-select snake-navbar" style={{ marginBottom: 14 }}>
+      <button
+        className={`btn tictac-mode-btn${currentGame === "tictactoe" ? " active" : ""}`}
+        type="button"
+        onClick={() => setGame("tictactoe")}
+        aria-pressed={currentGame === "tictactoe"}
+      >Tic Tac Toe</button>
+      <button
+        className={`btn tictac-mode-btn${currentGame === "snake" ? " active" : ""}`}
+        style={{ color: "#fff", background: currentGame === "snake" ? "var(--primary)" : undefined }}
+        type="button"
+        onClick={() => setGame("snake")}
+        aria-pressed={currentGame === "snake"}
+      >Snake</button>
+    </div>
+  );
+}
 
 /*
   --- Color Palette and Theme ---
@@ -33,10 +55,14 @@ function calculateWinner(squares) {
   return null;
 }
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * Main App component. Allows toggling between Tic Tac Toe and Snake games.
+ */
 function App() {
   // Theme: support toggle, default = light
   const [theme, setTheme] = useState('light');
+  const [currentGame, setCurrentGame] = useState("tictactoe");
 
   // 0: Player vs Player, 1: Player vs Computer
   const [gameMode, setGameMode] = useState(0);
@@ -187,45 +213,52 @@ function App() {
         >
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
-        <div className="tictac-container">
-          <h1 className="tictac-title">Tic Tac Toe</h1>
-          <div className="tictac-mode-select">
-            <ModeButton
-              label="Player vs Player"
-              active={gameMode === 0}
-              onClick={() => handleModeChange(0)}
-            />
-            <ModeButton
-              label="Player vs Computer"
-              active={gameMode === 1}
-              onClick={() => handleModeChange(1)}
-            />
-          </div>
-          <div className="tictac-status">{status}</div>
-          <Scoreboard scores={scores} draws={draws} gameMode={gameMode} />
-          <div className="tictac-board">
-            {[0, 1, 2].map(row => (
-              <div className="tictac-row" key={row}>
-                {[
-                  3 * row,
-                  3 * row + 1,
-                  3 * row + 2
-                ].map(renderSquare)}
+        <div className="tictac-container" style={currentGame === "snake" ? {padding: 0, boxShadow:'none',background:'none',width:"unset"}:{}}>
+          <AppNav currentGame={currentGame} setGame={setCurrentGame} />
+          {currentGame === "tictactoe" ? (
+            <>
+              <h1 className="tictac-title">Tic Tac Toe</h1>
+              <div className="tictac-mode-select">
+                <ModeButton
+                  label="Player vs Player"
+                  active={gameMode === 0}
+                  onClick={() => handleModeChange(0)}
+                />
+                <ModeButton
+                  label="Player vs Computer"
+                  active={gameMode === 1}
+                  onClick={() => handleModeChange(1)}
+                />
               </div>
-            ))}
-          </div>
-          <div className="tictac-controls">
-            <button className="btn tictac-control-btn" onClick={resetGame}>
-              Reset Round
-            </button>
-            <button className="btn tictac-control-btn accent" onClick={resetAll}>
-              Reset All
-            </button>
-          </div>
+              <div className="tictac-status">{status}</div>
+              <Scoreboard scores={scores} draws={draws} gameMode={gameMode} />
+              <div className="tictac-board">
+                {[0, 1, 2].map(row => (
+                  <div className="tictac-row" key={row}>
+                    {[
+                      3 * row,
+                      3 * row + 1,
+                      3 * row + 2
+                    ].map(renderSquare)}
+                  </div>
+                ))}
+              </div>
+              <div className="tictac-controls">
+                <button className="btn tictac-control-btn" onClick={resetGame}>
+                  Reset Round
+                </button>
+                <button className="btn tictac-control-btn accent" onClick={resetAll}>
+                  Reset All
+                </button>
+              </div>
+            </>
+          ) : (
+            <SnakeGame />
+          )}
         </div>
         <footer className="tictac-footer">
           <span>
-            &copy; {new Date().getFullYear()} Tic Tac Toe | Modern React Demo
+            &copy; {new Date().getFullYear()} Minimalist React Games Demo
           </span>
         </footer>
       </header>
