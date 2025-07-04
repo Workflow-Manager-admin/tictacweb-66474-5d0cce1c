@@ -212,6 +212,115 @@ body {
   transform: translateY(0);
 }
 
+/* --- Addition Game Styles --- */
+.addition-game-container {
+  background: var(--bg-primary);
+  border-radius: 15px;
+  box-shadow: 0 2px 11px 0 rgba(33,150,243,0.06);
+  width: 360px;
+  max-width: 98vw;
+  margin: 0 auto;
+  padding: 26px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.addition-title {
+  font-size: 2rem;
+  margin-bottom: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.addition-scoreboard {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+}
+.addition-question-block {
+  margin: 18px 0 6px 0;
+  width: 100%;
+  text-align: center;
+}
+.addition-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.addition-input {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 13px;
+  font-size: 1.13rem;
+  width: 92px;
+  text-align: center;
+  outline: none;
+  transition: border .12s;
+}
+.addition-input:focus {
+  border-color: var(--primary);
+}
+.addition-btn-submit,
+.addition-btn-reset {
+  margin-left: 0;
+}
+.addition-btn-reset {
+  margin-left: 10px;
+}
+.addition-feedback {
+  min-height: 31px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-top: 10px;
+  color: var(--primary);
+  text-align: center;
+  transition: color 0.18s;
+}
+.addition-help {
+  margin-top: 20px;
+  color: var(--primary);
+  font-size: 0.97rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* Responsive for Addition */
+@media (max-width: 600px) {
+  .addition-game-container {
+    width: 99vw;
+    padding: 13px 4vw 11px;
+    border-radius: 0 0 18px 18px;
+  }
+  .addition-title {
+    font-size: 1.36rem;
+    margin-bottom: 7px;
+  }
+  .addition-scoreboard {
+    gap: 7px;
+    font-size: 0.94rem;
+  }
+  .addition-question {
+    font-size: 1.23rem !important;
+  }
+}
+
+@media (max-width: 410px) {
+  .addition-game-container {
+    width: 100vw;
+    min-width: unset;
+    padding: 7px 1vw 9px 2vw;
+  }
+  .addition-input {
+    width: 59px;
+    font-size: .95rem;
+    padding: 6px 7px;
+  }
+}
 /* Responsive design */
 @media (max-width: 600px) {
   :root {

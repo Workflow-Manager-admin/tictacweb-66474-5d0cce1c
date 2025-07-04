@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import SnakeGame from './Snake';
+import AdditionGame from './AdditionGame';
 
 // PUBLIC_INTERFACE
 function AppNav({ currentGame, setGame }) {
@@ -19,6 +20,13 @@ function AppNav({ currentGame, setGame }) {
         onClick={() => setGame("snake")}
         aria-pressed={currentGame === "snake"}
       >Snake</button>
+      <button
+        className={`btn tictac-mode-btn${currentGame === "addition" ? " active" : ""}`}
+        style={{ color: "#fff", background: currentGame === "addition" ? "var(--primary)" : undefined }}
+        type="button"
+        onClick={() => setGame("addition")}
+        aria-pressed={currentGame === "addition"}
+      >Addition Game</button>
     </div>
   );
 }
@@ -252,8 +260,10 @@ function App() {
                 </button>
               </div>
             </>
-          ) : (
+          ) : currentGame === "snake" ? (
             <SnakeGame />
+          ) : (
+            <AdditionGame />
           )}
         </div>
         <footer className="tictac-footer">
