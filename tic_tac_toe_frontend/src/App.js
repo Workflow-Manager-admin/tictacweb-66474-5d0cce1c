@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import SnakeGame from './Snake';
 import AdditionGame from './AdditionGame';
+import SubtractionGame from './SubtractionGame';
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * AppNav renders the game navigation bar (tabs).
+ * Includes: Tic Tac Toe, Snake, Addition Game, Subtraction Game
+ */
 function AppNav({ currentGame, setGame }) {
   return (
     <div className="tictac-mode-select snake-navbar" style={{ marginBottom: 14 }}>
@@ -27,6 +32,13 @@ function AppNav({ currentGame, setGame }) {
         onClick={() => setGame("addition")}
         aria-pressed={currentGame === "addition"}
       >Addition Game</button>
+      <button
+        className={`btn tictac-mode-btn${currentGame === "subtraction" ? " active" : ""}`}
+        style={{ color: "#fff", background: currentGame === "subtraction" ? "var(--primary)" : undefined }}
+        type="button"
+        onClick={() => setGame("subtraction")}
+        aria-pressed={currentGame === "subtraction"}
+      >Subtraction Game</button>
     </div>
   );
 }
@@ -262,8 +274,10 @@ function App() {
             </>
           ) : currentGame === "snake" ? (
             <SnakeGame />
-          ) : (
+          ) : currentGame === "addition" ? (
             <AdditionGame />
+          ) : (
+            <SubtractionGame />
           )}
         </div>
         <footer className="tictac-footer">
